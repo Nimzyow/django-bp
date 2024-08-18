@@ -1,6 +1,8 @@
 from django.contrib.auth.admin import User
 from django.db import models
 
+from common.models import TimeStamp
+
 GENDER = [
     ("Male", "Male"),
     ("Female", "Female"),
@@ -9,7 +11,7 @@ GENDER = [
 
 
 # Create your models here.
-class Profile(models.Model):
+class Profile(TimeStamp):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     age = models.IntegerField()
     gender = models.CharField(choices=GENDER, max_length=7)
