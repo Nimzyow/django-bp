@@ -3,3 +3,4 @@ djangorestframework
 pygments
 httpie
 pylint_django
+factory-boy
