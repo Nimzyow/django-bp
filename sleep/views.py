@@ -1,4 +1,5 @@
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 
 from user.models import Profile
 
@@ -10,6 +11,7 @@ from .serializers import SleepSerializer
 class SleepListCreate(generics.CreateAPIView):
     queryset = Sleep.objects.all()
     serializer_class = SleepSerializer
+    permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer: SleepSerializer):
         profile = Profile.objects.get(user=self.request.user)

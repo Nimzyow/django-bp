@@ -6,7 +6,6 @@ from .models import Sleep
 
 
 class SleepSerializer(serializers.ModelSerializer):
-    profile = serializers.PrimaryKeyRelatedField(queryset=Profile.objects.all())
 
     class Meta:
         model = Sleep
