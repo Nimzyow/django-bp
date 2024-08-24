@@ -1,14 +1,16 @@
-from django.shortcuts import render
 from rest_framework import generics
+
+from user.models import Profile
 
 from .models import Sleep
 from .serializers import SleepSerializer
 
 
 # Create your views here.
-class SleepList(generics.ListCreateAPIView):
+class SleepListCreate(generics.CreateAPIView):
     queryset = Sleep.objects.all()
     serializer_class = SleepSerializer
 
-    def perform_create(self, serializer: SleepSerializer) -> None:
-        serializer.save(profile=self.request.user.profile)
+    def perform_create(self, serializer: SleepSerializer):
+        profile = Profile.objects.get(user=self.request.user)
+        serializer.save(profile=profile)
