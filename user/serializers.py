@@ -2,6 +2,8 @@ from typing import TypedDict
 
 from rest_framework import serializers
 
+from sleep.models import Sleep
+
 from .models import Profile, User
 
 
@@ -26,10 +28,11 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer()
+    sleep_entries = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = ["first_name", "last_name", "username", "email", "profile"]
+        fields = ["first_name", "last_name", "username", "email", "profile", "sleep_entries"]
 
     def create(self, validated_data: UserCreationData) -> User:
         profile_data: ProfileData = validated_data.pop("profile")
@@ -41,3 +44,6 @@ class UserSerializer(serializers.ModelSerializer):
 
         Profile.objects.create(user=user, **profile_data)
         return user
+
+    def get_sleep_entries(self, obj: User) -> int:
+        return Sleep.objects.filter(profile=obj.profile).count()

@@ -8,7 +8,7 @@ from .serializers import SleepSerializer
 
 
 # Create your views here.
-class SleepListCreate(generics.CreateAPIView):
+class SleepCreate(generics.CreateAPIView):
     queryset = Sleep.objects.all()
     serializer_class = SleepSerializer
     permission_classes = [IsAuthenticated]
