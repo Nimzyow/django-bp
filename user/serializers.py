@@ -1,6 +1,21 @@
+from typing import TypedDict
+
 from rest_framework import serializers
 
 from .models import Profile, User
+
+
+class ProfileData(TypedDict):
+    age: int
+    gender: str
+
+
+class UserCreationData(TypedDict):
+    first_name: str
+    last_name: str
+    email: str
+    password: str
+    profile: ProfileData
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -16,9 +31,9 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = "__all__"
 
-    def create(self, validated_data):
-        profile_data = validated_data.pop("profile")
-        password = validated_data.pop("password")
+    def create(self, validated_data: UserCreationData) -> User:
+        profile_data: ProfileData = validated_data.pop("profile")
+        password: str = validated_data.pop("password")
 
         user = User.objects.create(**validated_data)
         user.set_password(password)
