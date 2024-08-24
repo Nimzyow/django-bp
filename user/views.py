@@ -11,5 +11,5 @@ class UserListCreate(generics.ListCreateAPIView):
 
     # You normlly don't need below but apply the business logic of filtering here because we dont want
     # super user or staff to get listed in the return
-    def get_queryset(self):
+    def get_queryset(self) -> User:
         return User.objects.filter(is_staff=False, is_superuser=False)

@@ -13,6 +13,6 @@ class SleepCreate(generics.CreateAPIView):
     serializer_class = SleepSerializer
     permission_classes = [IsAuthenticated]
 
-    def perform_create(self, serializer: SleepSerializer):
+    def perform_create(self, serializer: SleepSerializer) -> None:
         profile = Profile.objects.get(user=self.request.user)
         serializer.save(profile=profile)

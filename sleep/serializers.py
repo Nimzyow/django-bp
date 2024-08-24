@@ -4,8 +4,6 @@ from typing import TypedDict
 from django.utils.timezone import make_aware, now
 from rest_framework import serializers
 
-from user.models import Profile
-
 from .models import Sleep
 
 
@@ -20,7 +18,7 @@ class SleepSerializer(serializers.ModelSerializer):
         model = Sleep
         fields = ["slept_at", "sleep_length"]
 
-    def validate_slept_at(self, value):
+    def validate_slept_at(self, value: datetime) -> datetime:
         today_start = make_aware(datetime.combine(now().date(), time.min))
         if value >= today_start:
             raise serializers.ValidationError("The 'slept_at' date must be before today at 00:00:00")
