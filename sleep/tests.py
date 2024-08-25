@@ -31,6 +31,3 @@ class SleepCreate(TestCase):
         sleep = Sleep.objects.get(profile=user.profile)
 
         self.assertEqual(sleep.sleep_length, 7.5)
-
-        
-
