@@ -7,7 +7,7 @@ from user.models import Profile
 
 # Create your models here.
 class Sleep(TimeStamp):
-    profile = models.ForeignKey(Profile, on_delete=models.PROTECT)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     slept_at = models.DateTimeField()
     sleep_length = models.FloatField(validators=[MinValueValidator(0)], max_length=2)
 
