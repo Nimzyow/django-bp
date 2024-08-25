@@ -7,7 +7,6 @@ from django.utils import timezone
 
 from sleep.models import Sleep
 from user.factories.factories import ProfileFactory
-from user.models import Profile
 
 
 # Create your tests here.
