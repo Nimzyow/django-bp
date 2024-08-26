@@ -24,7 +24,7 @@ class SleepDetailView(generics.ListAPIView):
     serializer_class = SleepSerializer
     permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
+    def get_queryset(self) -> list[Sleep]:
         user_id = self.kwargs["user_id"]
         profile = get_object_or_404(Profile, user_id=user_id)
 
