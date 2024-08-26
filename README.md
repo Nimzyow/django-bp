@@ -12,3 +12,13 @@ seed database
 python manage.py seed_user
 python manage.py seed_sleep
 ```
+
+URL's
+
+* /signup/              POST
+* /login/               POST
+* /user/users           GET
+* /user/<id>/sleeps     GET
+* /user/<id>/sleeps     POST
+* /admin                
+  

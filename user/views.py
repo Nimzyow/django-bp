@@ -6,7 +6,7 @@ from .serializers import UserSerializer
 
 
 # Create your views here.
-class UserListCreate(generics.ListAPIView):
+class UserListView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
@@ -17,6 +17,6 @@ class UserListCreate(generics.ListAPIView):
         return User.objects.filter(is_staff=False, is_superuser=False)
 
 
-class UserCreate(generics.CreateAPIView):
+class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer

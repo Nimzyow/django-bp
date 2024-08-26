@@ -10,7 +10,7 @@ from user.models import User
 class UserCreateListTest(TestCase):
     def test_can_save_a_user_and_profile_POST_request(self):
         response = self.client.post(
-            "/user/register/",
+            "/signup/",
             data=json.dumps(
                 {
                     "first_name": "Karen",
