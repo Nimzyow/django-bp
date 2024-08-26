@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from user.models import Profile
 
@@ -12,6 +13,7 @@ from .serializers import SleepSerializer
 class SleepCreate(generics.CreateAPIView):
     queryset = Sleep.objects.all()
     serializer_class = SleepSerializer
+    authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer: SleepSerializer) -> None:
@@ -22,6 +24,7 @@ class SleepCreate(generics.CreateAPIView):
 class SleepDetailView(generics.ListAPIView):
     queryset = Sleep.objects.all()
     serializer_class = SleepSerializer
+    authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self) -> list[Sleep]:
