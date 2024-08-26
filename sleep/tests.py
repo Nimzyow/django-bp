@@ -2,13 +2,13 @@ import json
 import random
 from datetime import timedelta
 
-from django.contrib.auth.models import User
 from django.utils import timezone
 
 from sleep.factories.factories import SleepFactory
 from sleep.models import Sleep
 from tests.base import BaseAPITestCase
 from user.factories.factories import ProfileFactory
+from user.models import CustomUser
 
 
 class SleepCreate(BaseAPITestCase):
@@ -37,7 +37,7 @@ class SleepCreate(BaseAPITestCase):
 
     def test_authenticated_user_can_view_a_users_sleep_GET_request(self):
         ProfileFactory.create_batch(2)
-        users = User.objects.all()
+        users = CustomUser.objects.all()
 
         for user in users:
             SleepFactory.create_batch(random.randint(5, 15), profile=user.profile)

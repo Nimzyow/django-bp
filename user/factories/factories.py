@@ -1,16 +1,14 @@
 import random
 
 import factory
-from django.contrib.auth.models import User
 
-from user.models import Profile
+from user.models import CustomUser, Profile
 
 
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = User
+        model = CustomUser
 
-    username = factory.Sequence(lambda n: f"user{n}")
     first_name = factory.Faker("first_name")
     last_name = factory.Faker("last_name")
     email = factory.Faker("email")

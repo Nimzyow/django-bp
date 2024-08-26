@@ -2,7 +2,7 @@ import json
 
 from tests.base import BaseAPITestCase
 from user.factories.factories import ProfileFactory
-from user.models import User
+from user.models import CustomUser
 
 
 # Create your tests here.
@@ -15,7 +15,6 @@ class UserCreateListTest(BaseAPITestCase):
                     "first_name": "Karen",
                     "last_name": "Doe",
                     "password": "helloWorlds",
-                    "username": "karenDoe",
                     "email": "karendoe@example.com",
                     "profile": {"age": 31, "gender": "Female"},
                 }
@@ -25,7 +24,7 @@ class UserCreateListTest(BaseAPITestCase):
 
         self.assertEqual(response.status_code, 201)
 
-        user = User.objects.last()
+        user = CustomUser.objects.last()
 
         self.assertEqual(user.first_name, "Karen")
 

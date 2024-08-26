@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 from sleep.models import Sleep
 
-from .models import Profile, User
+from .models import CustomUser, Profile
 
 
 class ProfileData(TypedDict):
@@ -31,12 +31,11 @@ class UserSerializer(serializers.ModelSerializer):
     sleep_entries = serializers.SerializerMethodField()
 
     class Meta:
-        model = User
+        model = CustomUser
         fields = [
             "id",
             "first_name",
             "last_name",
-            "username",
             "email",
             "profile",
             "sleep_entries",
@@ -44,17 +43,17 @@ class UserSerializer(serializers.ModelSerializer):
         ]
         extra_kwargs = {"password": {"write_only": True}}
 
-    def create(self, validated_data: UserCreationData) -> User:
+    def create(self, validated_data: UserCreationData) -> CustomUser:
 
         profile_data: ProfileData = validated_data.pop("profile")
         password: str = validated_data.pop("password")
 
-        user = User.objects.create(**validated_data)
+        user = CustomUser.objects.create(**validated_data)
         user.set_password(password)
         user.save()
 
         Profile.objects.create(user=user, **profile_data)
         return user
 
-    def get_sleep_entries(self, obj: User) -> int:
+    def get_sleep_entries(self, obj: CustomUser) -> int:
         return Sleep.objects.filter(profile=obj.profile).count()
