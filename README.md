@@ -15,10 +15,9 @@ python manage.py seed_sleep
 
 URL's
 
-* /signup/              POST
+* /signup/              POST                
 * /login/               POST
 * /user/users           GET
-* /user/<id>/sleeps     GET
-* /user/<id>/sleeps     POST
-* /admin                
-  
+* /user/<id>/sleeps/     GET
+* /user/<id>/sleeps/    POST
+* /admin/  
