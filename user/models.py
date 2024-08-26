@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -29,7 +29,9 @@ class UserProfileManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self, email: str, password: str, **extra_fields) -> AbstractUser:
+    def create_superuser(
+        self, email: str, password: str, **extra_fields
+    ) -> AbstractUser:
         """Create a new superuser profile"""
         user = self.create_user(email, password, **extra_fields)
         user.is_superuser = True
