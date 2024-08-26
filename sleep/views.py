@@ -28,4 +28,4 @@ class SleepDetailView(generics.ListAPIView):
         user_id = self.kwargs["user_id"]
         profile = get_object_or_404(Profile, user_id=user_id)
 
-        return Sleep.objects.filter(profile=profile).order_by("-slept_at")
+        return Sleep.objects.filter(profile=profile).order_by("-slept_at")[:8]
