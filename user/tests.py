@@ -1,15 +1,12 @@
 import json
 
-# from django.test import TestCase
-from rest_framework.test import APITestCase
-from rest_framework_simplejwt.tokens import RefreshToken
-
+from tests.base import BaseAPITestCase
 from user.factories.factories import ProfileFactory
 from user.models import User
 
 
 # Create your tests here.
-class UserCreateListTest(APITestCase):
+class UserCreateListTest(BaseAPITestCase):
     def test_can_save_a_user_and_profile_POST_request(self):
         response = self.client.post(
             "/signup/",
@@ -28,7 +25,7 @@ class UserCreateListTest(APITestCase):
 
         self.assertEqual(response.status_code, 201)
 
-        user = User.objects.first()
+        user = User.objects.last()
 
         self.assertEqual(user.first_name, "Karen")
 
@@ -38,13 +35,8 @@ class UserCreateListTest(APITestCase):
 
         self.assertEqual(response.status_code, 401)
 
-        user = User.objects.first()
-
-        refresh = RefreshToken.for_user(user)
-        token = str(refresh.access_token)
-
-        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.get_access_token()}")
         response = self.client.get("/user/users/")
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 2)
+        self.assertEqual(len(response.data), 3)
