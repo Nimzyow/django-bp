@@ -23,7 +23,7 @@ class UserCreationData(TypedDict):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['age', 'gender']
+        fields = ["age", "gender"]
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -32,14 +32,20 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["id", "first_name", "last_name", "username", "email", "profile", "sleep_entries", "password"]
-        extra_kwargs = {
-            "password": {
-                "write_only": True
-            }
-        }
+        fields = [
+            "id",
+            "first_name",
+            "last_name",
+            "username",
+            "email",
+            "profile",
+            "sleep_entries",
+            "password",
+        ]
+        extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data: UserCreationData) -> User:
+
         profile_data: ProfileData = validated_data.pop("profile")
         password: str = validated_data.pop("password")
 
