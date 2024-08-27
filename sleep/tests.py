@@ -20,13 +20,13 @@ class SleepCreate(BaseAPITestCase):
         }
 
         response = self.client.post(
-            "/sleep/sleeps/", data=json.dumps(payload), content_type="application/json"
+            "/user/sleeps/", data=json.dumps(payload), content_type="application/json"
         )
         self.assertEqual(response.status_code, 401)
 
         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.get_access_token()}")
         response = self.client.post(
-            "/sleep/sleeps/", data=json.dumps(payload), content_type="application/json"
+            "/user/sleeps/", data=json.dumps(payload), content_type="application/json"
         )
 
         self.assertEqual(response.status_code, 201)
