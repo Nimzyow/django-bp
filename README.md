@@ -22,7 +22,11 @@ python manage.py seed_user
 python manage.py seed_sleep
 ```
 
-URL's
+## URL's
+
+For token required urls please include headers:
+* "Authorization": "Bearer token" 
+* "Content-Type": "application/json"
 
 <table>
   <tbody>
@@ -30,6 +34,7 @@ URL's
       <th>Slug</th>
       <th>Protocol</th>
       <th>Body</th>
+      <th>Requires token</th>
       <th>Notes</th>
     </tr>
     <tr>
@@ -46,6 +51,7 @@ URL's
         }
       }
       </td>
+      <td>N</td>
       <td>Creates user and profile</td>
     </tr>
     <tr>
@@ -56,18 +62,21 @@ URL's
           "password": str
           }
       </td>
+      <td>N</td>
       <td>Reponse will include token and refresh token</td>
     </tr>
     <tr>
       <td>/user/users/</td>
       <td>GET</td>
       <td>N/A</td>
-      <td>Get's all useres include headers "Authorization": "Bearer token" and "Content-Type": "application/json"</td>
+      <td>Y</td>
+      <td>Get's all useres</td>
     </tr>
     <tr>
       <td>/user/{user_id}/sleeps/</td>
       <td>GET</td>
       <td>N/A</td>
+      <td>Y</td>
       <td>Gets all sleep records for a user</td>
     </tr>
     <tr>
@@ -77,17 +86,18 @@ URL's
           "slept_at": str,
           "sleep_length": int
       }</td>
+      <td>Y</td>
       <td>Create sleep entry for a user</td>
     </tr>
     <tr>
       <td>/admin/</td>
       <td>N/A</td>
+      <td>N/A</td>
+      <td>N/A</td>
       <td>Entry point to CRM</td>
     </tr>
   </tbody>
 </table>
-
-http://localhost:8000
 
 * /signup/              POST
 * /login/               POST You'll get a token
@@ -96,7 +106,7 @@ http://localhost:8000
 * /user/<id>/sleeps/    POST
 * /admin/  
 
-Admin site
+## Admin CRM
 
 ![admin_1](images/admin.png)
 ![admin_2](images/admin_2.png)
