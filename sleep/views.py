@@ -10,7 +10,7 @@ from .serializers import SleepSerializer
 
 
 # Create your views here.
-class SleepCreate(generics.CreateAPIView):
+class SleepCreateView(generics.CreateAPIView):
     queryset = Sleep.objects.all()
     serializer_class = SleepSerializer
     authentication_classes = [JWTAuthentication]

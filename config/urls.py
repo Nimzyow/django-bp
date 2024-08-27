@@ -17,12 +17,18 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from user.views import UserCreateView
+from sleep.views import SleepCreateView, SleepDetailView
+from user.views import UserCreateView, UserListView
+
+extra_patterns = [
+    path("users/", UserListView.as_view(), name="user-list"),
+    path("<int:user_id>/sleeps/", SleepDetailView.as_view(), name="user-sleep"),
+    path("sleeps/", SleepCreateView.as_view(), name="sleep-list-create"),
+]
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("user/", include("user.urls")),
-    path("sleep/", include("sleep.urls")),
+    path("user/", include(extra_patterns)),
     path("login/", TokenObtainPairView.as_view(), name='api_token_auth'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path("signup/", UserCreateView.as_view(), name="register")
